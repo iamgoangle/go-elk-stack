@@ -1,16 +1,45 @@
 # go-elk-stack
-:fries: This is my public repository it is built to learn about ELK stack. This pository have an inspiration from https://github.com/deviantony/docker-elk as created based on Docker.
+:fries: This is simple project to demonstrate **Elasticsearch-Logstash-Kibina (ELK)** integration with **Golang**
 
-# What is an ELK Stack?
-Elasticsearch = Datastore support full-text search in order to search & analyze data
-Logstash = Collect & Transform data from multi source
-Kibana = Visualize & Manager
-# Run Docker Compose
+# Go Stacks
+1. No web framework, using native go
+2. **dep** for package manager `brew install dep`
+3. **gin** for live-reload `go get github.com/codegangsta/gin`
+
+# Run ELK via docker-compose
 ```sh
 docker-compose up
 ```
 
+# Ports
+```
+:9200 = elasticsearch
+:5000 = logstash
+:5601 = kibana
+```
+
+You can open kibana dashboard via [http://localhost:5601](http://localhost:5601)
+
+# Install Dependencies
+```sh
+dep ensure
+```
+
+# Add new dependency
+```sh
+go get -u -v <dependency> or
+dep ensure --add <dependency>
+```
+
 # Run App
-```sj
+```sh
 go run main.go
 ```
+
+# Run app with live-reload
+```sh
+gin main.go
+```
+
+# Todo
+- create Makefile

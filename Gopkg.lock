@@ -102,31 +102,22 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/gorilla/context"
+  packages = ["."]
+  revision = "1ea25387ff6f684839d82767c1733ff4d4d15d0a"
+  version = "v1.1"
+
+[[projects]]
+  name = "github.com/gorilla/mux"
+  packages = ["."]
+  revision = "e3702bed27f0d39777b0b37b664b6280e8ef8fbf"
+  version = "v1.6.2"
+
+[[projects]]
   branch = "master"
   name = "github.com/looplab/logspout-logstash"
   packages = ["."]
   revision = "68a4e47e757da53f606a8984ef97a207b953cc7c"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/mailru/easyjson"
-  packages = [
-    ".",
-    "buffer",
-    "jlexer",
-    "jwriter"
-  ]
-  revision = "8b799c424f57fa123fc63a99d6383bc6e4c02578"
-
-[[projects]]
-  name = "github.com/olivere/elastic"
-  packages = [
-    ".",
-    "config",
-    "uritemplates"
-  ]
-  revision = "4586a6964b5cb45a2dadd67577f83f00b1ec5029"
-  version = "v6.1.18"
 
 [[projects]]
   name = "github.com/opencontainers/go-digest"
@@ -188,15 +179,9 @@
   ]
   revision = "d0faeb539838e250bd0a9db4182d48d4a1915181"
 
-[[projects]]
-  branch = "v3"
-  name = "gopkg.in/sohlich/elogrus.v3"
-  packages = ["."]
-  revision = "1fa29e2f2009c129693c7079e5f6361bfbd34080"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "dff107c84c4fdeadb915b0d5f4d4acdb690f930a0fe8f06ddbb540262a296cba"
+  inputs-digest = "39daf85d01c27fded55828a6c50522f52ed72cc397a50e538eab073936763a40"
   solver-name = "gps-cdcl"
   solver-version = 1

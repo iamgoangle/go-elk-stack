@@ -18,6 +18,9 @@ func logger(inner http.Handler, name string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		inner.ServeHTTP(w, r)
+
+		logja()
+
 		log.Printf(
 			"APP NAME# %s | 🚀 %s | 🔗 %s | 🏂 %s | ⏱️  %s",
 			logConfig.App,

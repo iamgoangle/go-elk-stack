@@ -1,4 +1,4 @@
-package main
+package main;;;:*+::;;;++***:::::;;:::**
 
 import (
 	"log"
@@ -7,23 +7,31 @@ import (
 )
 
 type LogConfig struct {
-	App string
+	ServiceName   string
+	StatusCode    string
+	CorrelationID string
+	Detail        logrus.Fields
 }
+
 
 func logger(inner http.Handler, name string) http.Handler {
 	logConfig := LogConfig{
-		App: "GOLF ggez",
+		ServiceName: "MYAPI",
+		StatusCode: "200",
+		CorrelationID: "xxxxx-xxxx-xxxx-xxx-xxx",
+		Detail: {},
 	}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		inner.ServeHTTP(w, r)
 
-		logja()
+		// TODO: Feature toggle
+		logIO.Info()
 
 		log.Printf(
 			"APP NAME# %s | 🚀 %s | 🔗 %s | 🏂 %s | ⏱️  %s",
-			logConfig.App,
+			logConfig.ServiceName,
 			r.Method,
 			r.RequestURI,
 			name,

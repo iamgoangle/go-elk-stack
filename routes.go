@@ -15,18 +15,34 @@ type Route struct {
 
 type Routes []Route
 
+type TestLog struct {
+	Message interface{}
+	Detail  interface{}
+}
+
 func InitRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	for _, route := range routes {
 		var handler http.Handler
 		handler = route.HandlerFunc
-		handler = logger(handler, route.Name)
+		handler = routeLogger(
+			handler,
+			route.Name,
+			route.Method,
+			route.Pattern,
+		)
 
 		router.
 			Methods(route.Method).
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(handler)
+
+		ITest := TestLog{
+			Message: "ggez",
+			Detail:  "test",
+		}
+		logger(ITest)
 	}
 
 	return router

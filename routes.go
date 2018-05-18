@@ -37,12 +37,6 @@ func InitRouter() *mux.Router {
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(handler)
-
-		ITest := TestLog{
-			Message: "ggez",
-			Detail:  "test",
-		}
-		logger(ITest)
 	}
 
 	return router

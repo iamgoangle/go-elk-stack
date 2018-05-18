@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sets=(
 "
@@ -25,4 +25,4 @@ do
    echo "$i"
 done   
 
-gin -a 3001 -p 8080	
+$GOPATH/bin/gin -a 3001 -p 8080	

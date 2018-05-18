@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
+	"os"
 	"time"
 
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 type LogConfig struct {
@@ -16,31 +16,43 @@ type LogConfig struct {
 	RoutePattern  string
 	StatusCode    string
 	CorrelationID string
-	Detail        logrus.Fields
+	Detail        log.Fields
 }
 
+// https://godoc.org/github.com/sirupsen/logrus
+const Environment string = "dev"
+
 func routeLogger(inner http.Handler, rtName string, rtMethod string, rtPattern string) http.Handler {
-	logConfig := LogConfig{
-		ServiceName:   "MYAPI",
-		RouteName:     rtName,
-		RouteMethod:   rtMethod,
-		RoutePattern:  rtPattern,
-		StatusCode:    "200",
-		CorrelationID: "xxxxx-xxxx-xxxx-xxx-xxx", // generating from api gateway or frontend
+	if Environment == "production" {
+		log.SetFormatter(&log.JSONFormatter{})
+		log.SetOutput(os.Stdout)
+	} else {
+		log.SetFormatter(&log.TextFormatter{
+			FullTimestamp: true,
+			ForceColors:   true,
+		})
 	}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		inner.ServeHTTP(w, r)
 
-		log.Printf(
-			"APP NAME# %s | 🚀 %s | 🔗 %s | 🏂 %s | ⏱️  %s",
-			logConfig.ServiceName,
-			r.Method,
-			r.RequestURI,
-			rtName,
-			time.Since(start),
-		)
+		routeLogging := LogConfig{
+			ServiceName:   "MYAPI",
+			RouteName:     rtName,
+			RouteMethod:   rtMethod,
+			RoutePattern:  rtPattern,
+			StatusCode:    "200",
+			CorrelationID: "xxxxx-xxxx-xxxx-xxx-xxx", // generating from api gateway or frontend
+		}
+
+		log.WithFields(
+			log.Fields{
+				"log":          routeLogging,
+				"responseTime": time.Since(start),
+			},
+		).Info("Route serve")
+
 	})
 }
 
